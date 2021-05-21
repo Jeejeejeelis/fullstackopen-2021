@@ -22,6 +22,9 @@ const Content = (props) => {
       <Part text = "Good" clicks = {props.good}/>
       <Part text = "Neutral" clicks = {props.neutral}/>
       <Part text = "Bad" clicks = {props.bad}/>
+      <Part text = "all" clicks = {props.good+props.neutral+props.bad}/>
+      <Part text = "average" clicks = {(props.good-props.bad)/(props.good+props.neutral+props.bad)}/>
+      <Part text = "positive" clicks = {(props.good)/(props.good+props.neutral+props.bad)}/>
     </div>
   )
 }
@@ -31,7 +34,6 @@ const Button = (props) => (
     {props.text}
   </button>
 )
-
 
 const App = () => {
   // tallenna napit omaan tilaansa
@@ -63,6 +65,7 @@ const App = () => {
       <Button handleClick={() => setBadValue(bad+1)} text="Bad" />
       <Header name ={name2} />
       <Content good = {good} neutral = {neutral} bad = {bad} />
+
     </div>
   )
 }
