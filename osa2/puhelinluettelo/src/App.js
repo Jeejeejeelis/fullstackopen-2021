@@ -40,6 +40,7 @@ const App = () => {
       setNewNumber('')
     }
   }
+  const filteredPeople = persons.filter(person => person.name.toLowerCase().startsWith(newFilter.toLowerCase()))
 
   return (
     <div>
@@ -57,7 +58,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {(persons.filter(person => person.name.toLowerCase().startsWith(newFilter.toLowerCase()))).map(person =>
+        {filteredPeople.map(person =>
         <p key = {person.name}>{person.name} {person.number}</p>)}
       </div>
     </div>
