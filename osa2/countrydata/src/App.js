@@ -45,7 +45,7 @@ const App = () => {
           return (
             <div>
               {filteredCountries.map(c =>
-              <p key = {c.name}>{c.name}</p>)}
+              <div key = {c.name}> {c.name} <button value = {c.name} onClick={handleFilterChange}>Show</button></div>)}
             </div>
           )
       } else {
