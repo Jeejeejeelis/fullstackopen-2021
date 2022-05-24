@@ -12,18 +12,18 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter] = useState('')
-  const [notes, setNotes] = useState([])
+  // const [notes, setNotes] = useState([])
 
   useEffect(() => {
     console.log('effect')
     axios
-      .get('http://localhost:3001/notes')
+      .get('http://localhost:3001/persons')
       .then(response => {
         console.log('promise fulfilled')
-        setNotes(response.data)
+        setPersons(response.data)
       })
   }, [])
-  console.log('render', notes.length, 'notes')
+  console.log('render', persons.length, 'persons')
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
