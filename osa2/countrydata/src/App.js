@@ -39,6 +39,9 @@ const App = () => {
               <li key = {l.name}>{l.name}</li>)}
               </ul>
               <img src={countries[0].flag} alt={'no flag found'} width="170" height="auto" />
+              <h3>Weather in {countries[0].capital}</h3>
+
+
             </div>
           )
       } else if ( countries.length <= 10 && countries.length > 1) {
