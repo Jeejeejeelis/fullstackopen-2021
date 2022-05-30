@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Communication from './services/Communication'
+
 
 
 const App = () => {
@@ -23,7 +25,6 @@ const App = () => {
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -52,8 +53,35 @@ const App = () => {
       setPersons(persons.concat(PersonObject))
       setNewName('')
       setNewNumber('')
+
+      axios
+        .post('http://localhost:3001/persons', PersonObject)
+        .then(response => {
+          console.log(response)
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
+
+  const deletePerson = (id,name) => {
+    if(window.confirm(`delete ${name} ?`)){
+      const person = persons.find(p => p.id === id)
+      //const changedNote = { ...note, important: !note.important }
+      console.log(person.name + "this person will be deleted")
+      axios.delete(`http://localhost:3001/persons/${person.id}`).then(response => {
+      setPersons(persons.filter(p => p.id !== id))
+  })
+    }
+
+
+  /*  axios.put(url, changedNote).then(response => {
+      setNotes(notes.map(note => note.id !== id ? note : response.data))
+    })
+  */
+  }
+
   const filteredPeople = persons.filter(person => person.name.toLowerCase().startsWith(newFilter.toLowerCase()))
 
   return (
@@ -73,7 +101,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         {filteredPeople.map(person =>
-        <p key = {person.name}>{person.name} {person.number}</p>)}
+        <p key = {person.id}>{person.name} {person.number} <button onClick={() => deletePerson(person.id,person.name)}>delete</button></p>)}
       </div>
     </div>
   )
