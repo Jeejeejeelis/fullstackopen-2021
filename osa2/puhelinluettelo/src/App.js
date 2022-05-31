@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Communication from './services/Communication'
+import communicationService from './services/Communication'
 
 
 
@@ -17,9 +17,8 @@ const App = () => {
   // const [notes, setNotes] = useState([])
 
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
+    communicationService
+      .getAll()
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
@@ -48,14 +47,22 @@ const App = () => {
       number: newNumber,
     }
     if(persons.map(person => person.name.toUpperCase()).indexOf(newName.toUpperCase())!==-1){
-      window.alert(`${newName} is in list already dude. there is only one ${newName}`)
+      if(window.confirm(`${newName} is already added to phonebook, replace old number with a new one?`)){
+        const person = persons.find(p => p.name === newName)
+        communicationService
+          .update(person.id, PersonObject)
+          .then(response => {
+            setPersons(persons.map(p => p.id !== person.id ? p : response.data))
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     }else{
       setPersons(persons.concat(PersonObject))
       setNewName('')
       setNewNumber('')
-
-      axios
-        .post('http://localhost:3001/persons', PersonObject)
+      communicationService
+        .create(PersonObject)
         .then(response => {
           console.log(response)
           setPersons(persons.concat(response.data))
@@ -68,18 +75,12 @@ const App = () => {
   const deletePerson = (id,name) => {
     if(window.confirm(`delete ${name} ?`)){
       const person = persons.find(p => p.id === id)
-      //const changedNote = { ...note, important: !note.important }
-      console.log(person.name + "this person will be deleted")
-      axios.delete(`http://localhost:3001/persons/${person.id}`).then(response => {
-      setPersons(persons.filter(p => p.id !== id))
-  })
+      communicationService.removePerson(person.id)
+      .then(response => {
+        setPersons(persons.filter(p => p.id !== id))
+      })
     }
 
-
-  /*  axios.put(url, changedNote).then(response => {
-      setNotes(notes.map(note => note.id !== id ? note : response.data))
-    })
-  */
   }
 
   const filteredPeople = persons.filter(person => person.name.toLowerCase().startsWith(newFilter.toLowerCase()))
