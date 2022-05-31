@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import communicationService from './services/Communication'
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
 
+  return (
+    <div className='error'>
+      {message}
+    </div>
+  )
+}
 
 const App = () => {
   const [ persons, setPersons] = useState([
@@ -14,7 +24,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter] = useState('')
-  // const [notes, setNotes] = useState([])
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     communicationService
@@ -55,6 +65,12 @@ const App = () => {
             setPersons(persons.map(p => p.id !== person.id ? p : response.data))
             setNewName('')
             setNewNumber('')
+            setErrorMessage(
+              `${newName}'s number has been changed`
+            )
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
           })
       }
     }else{
@@ -68,6 +84,20 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
+          setErrorMessage(
+            `Person '${newName}' has been added`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setErrorMessage(
+            `Person '${newName}' has not been added`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
         })
     }
   }
@@ -88,6 +118,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       filter : <input value = {newFilter} onChange={handleFilterChange}>
       </input>
       <h2>add a new</h2>
