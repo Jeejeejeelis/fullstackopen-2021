@@ -2,16 +2,24 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import communicationService from './services/Communication'
 
-const Notification = ({ message }) => {
-  if (message === null) {
+const Notification = ({ message, type }) => {
+  if (type==='Error'){
+    return (
+      <div className='error'>
+        {message}
+      </div>
+    )
+  }
+  else if (type==='Success') {
+    return(
+      <div className='success'>
+        {message}
+      </div>
+    )
+  }
+  else{
     return null
   }
-
-  return (
-    <div className='error'>
-      {message}
-    </div>
-  )
 }
 
 const App = () => {
@@ -25,6 +33,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+  const [errorType, setErrorType] = useState('')
 
   useEffect(() => {
     communicationService
@@ -65,10 +74,22 @@ const App = () => {
             setPersons(persons.map(p => p.id !== person.id ? p : response.data))
             setNewName('')
             setNewNumber('')
+            setErrorType('Success')
             setErrorMessage(
               `${newName}'s number has been changed`
             )
             setTimeout(() => {
+              setErrorType(null)
+              setErrorMessage(null)
+            }, 5000)
+          })
+          .catch(error => {
+            setErrorType('Error')
+            setErrorMessage(
+              `Information of ${newName} has already been removed from server`
+            )
+            setTimeout(() => {
+              setErrorType(null)
               setErrorMessage(null)
             }, 5000)
           })
@@ -84,18 +105,22 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setNewName('')
           setNewNumber('')
+          setErrorType('Success')
           setErrorMessage(
-            `Person '${newName}' has been added`
+            `Added ${newName}`
           )
           setTimeout(() => {
+            setErrorType(null)
             setErrorMessage(null)
           }, 5000)
         })
         .catch(error => {
+          setErrorType('Error')
           setErrorMessage(
             `Person '${newName}' has not been added`
           )
           setTimeout(() => {
+            setErrorType(null)
             setErrorMessage(null)
           }, 5000)
         })
@@ -118,7 +143,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={errorMessage} type={errorType} />
       filter : <input value = {newFilter} onChange={handleFilterChange}>
       </input>
       <h2>add a new</h2>
