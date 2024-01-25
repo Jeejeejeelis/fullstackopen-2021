@@ -62,7 +62,6 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-//Schema? persons-> people?!!!!!!!!!!!!!!!!!!!!!
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons)
@@ -75,18 +74,6 @@ app.get('/info', (request, response) => {
   response.send(`<h6>Phonebook has info for ${personCount} people</h6> <h6>${d}</h6>`);
 })
 
-// app.get('/api/persons/:id', (request, response) => {
-//   const id = Number(request.params.id)
-//   const person = persons.find(person => person.id === id)
-
-
-//   if (person) {
-//     response.json(person)
-//   } else {
-//     response.status(404).end()
-//   }
-// })
-
 app.get('/api/persons/:id', (request, response, next) => {
   Note.findById(request.params.id)
     .then(person => {
@@ -98,13 +85,6 @@ app.get('/api/persons/:id', (request, response, next) => {
     })
     .catch(error => next(error))
   })
-
-// app.delete('/api/persons/:id', (request, response) => {
-//   const id = Number(request.params.id)
-//   persons = persons.filter(person => person.id !== id)
-
-//   response.status(204).end()
-// })
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
@@ -120,36 +100,8 @@ app.listen(PORT, () => {
 })
 
 const generateId = () => {
-  // const maxId = persons.length > 0
-  //   ? Math.max(...persons.map(n => n.id))
-  //   : 0
-  // return maxId + 1
   return Math.floor(Math.random() * 1000000);
 }
-
-// app.post('/api/persons', (request, response) => {
-//   const body = request.body
-
-//   if (!body.name || !body.number) {
-//     return response.status(400).json({ 
-//       error: 'name or number missing!' 
-//     })
-//   } else if (persons.some(person => person.name === body.name)){
-//     return response.status(409).json({
-//       error: 'name must be unique'
-//     })
-//   }
-
-//   const person = {
-//     name: body.name,
-//     number: body.number,
-//     id: generateId(),
-//   }
-
-//   persons = persons.concat(person)
-
-//   response.json(person)
-// })
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
@@ -167,3 +119,19 @@ app.post('/api/persons', (request, response) => {
     response.json(savedPerson)
   })
 })
+
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson)
+    })
+    .catch(error => next(error))
+})
+
