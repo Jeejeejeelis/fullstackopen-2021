@@ -68,14 +68,19 @@ app.get('/api/persons', (request, response) => {
   })
 })
 
-app.get('/info', (request, response) => {
+app.get('/info', async (request, response) => {
   let d = new Date();
-  let personCount = persons.length;
-  response.send(`<h6>Phonebook has info for ${personCount} people</h6> <h6>${d}</h6>`);
+  try {
+    let count = await Person.countDocuments({});
+    response.send(`<h6>Phonebook has info for ${count} people</h6> <h6>${d}</h6>`);
+  } catch (error) {
+    console.error(error);
+    response.status(500).end();
+  }
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
-  Note.findById(request.params.id)
+  Person.findById(request.params.id)
     .then(person => {
       if (person) {
         response.json(person)
