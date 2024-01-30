@@ -1,8 +1,0 @@
-//POST http://localhost:3001/api/persons
-POST https://puhelinluettelo-backend-pinomae.fly.dev/api/persons
-content-type: application/json
-
-{
-    "name": "Delete MePerson",
-    "number": "39-23-215166"
-}
