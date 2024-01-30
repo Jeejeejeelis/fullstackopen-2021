@@ -19,12 +19,13 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
+    return response.status(400).json({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).send({ error: error.message })
+    console.log(error.message);
+    return response.status(400).json({ error: error.message })
   }
-
-  next(error)
+  return response.status(500).json({ error: 'Internal Server Error' })
+  //next(error)
 }
 
 // tämä tulee kaikkien muiden middlewarejen rekisteröinnin jälkeen!
@@ -74,8 +75,9 @@ app.get('/info', async (request, response) => {
     let count = await Person.countDocuments({});
     response.send(`<h6>Phonebook has info for ${count} people</h6> <h6>${d}</h6>`);
   } catch (error) {
-    console.error(error);
-    response.status(500).end();
+    next(error);
+    // console.error(error);
+    // response.status(500).end();
   }
 })
 
@@ -108,13 +110,13 @@ const generateId = () => {
   return Math.floor(Math.random() * 1000000);
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (body.name === undefined||body.number === undefined) {
     return response.status(400).json({ error: 'name or number missing' })
   }
-
+  
   const person = new Person({
     name: body.name,
     number: body.number,
@@ -123,17 +125,20 @@ app.post('/api/persons', (request, response) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
+  .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
-
+  const { content, important } = request.body
   const person = {
     name: body.name,
     number: body.number,
   }
-
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(
+    request.params.id, person,
+    {content, important},
+    { new: true, runValidators: true, context: 'query'}
+    )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })

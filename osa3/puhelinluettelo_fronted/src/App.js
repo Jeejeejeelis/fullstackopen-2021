@@ -113,17 +113,30 @@ const App = () => {
             setErrorType(null)
             setErrorMessage(null)
           }, 5000)
-        })
-        .catch(error => {
+        }).catch(error => {
+          console.log(error.response.data);
           setErrorType('Error')
-          setErrorMessage(
-            `Person '${newName}' has not been added`
-          )
+          setErrorMessage(error.response.data.error)
           setTimeout(() => {
             setErrorType(null)
             setErrorMessage(null)
           }, 5000)
         })
+        // .catch(error => {
+        //   // console.log(error.response.data);
+        //   setErrorType('Error')
+        //   const fullErrorMessage = error.response.data.match(/<pre>(.*?)<\/pre>/s)[1];
+        //   const errorMessage = fullErrorMessage.replace(/<[^>]*>?/gm, '').split('\n')[0];
+        //   const cleanErrorMessage = errorMessage.replace(/&nbsp;/g, ' ');
+        //   const finalErrorMessage = cleanErrorMessage.split('.')[0];
+        //   console.log(finalErrorMessage);
+        //   setErrorMessage(finalErrorMessage)
+        //   // `Person '${newName}' has not been added`
+        //   setTimeout(() => {
+        //     setErrorType(null)
+        //     setErrorMessage(null)
+        //   }, 5000)
+        // })
     }
   }
 
