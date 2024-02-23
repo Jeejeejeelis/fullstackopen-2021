@@ -1,5 +1,8 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
+const config = require('./utils/config')
+
+logger.info(`Server running on port ${config.PORT}`)
 
 notesRouter.get('/', (request, response) => {
   Note.find({}).then(notes => {

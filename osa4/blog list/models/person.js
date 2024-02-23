@@ -1,40 +1,62 @@
+// const mongoose = require('mongoose')
+// const config = require('./utils/config')
+
+// logger.info(`Server running on port ${config.PORT}`)
+
+// mongoose.set('strictQuery', false)
+
+// const url = process.env.MONGODB_URI
+
+// console.log('connecting to', url)
+// mongoose.connect(url)
+
+//   .then(() => {
+//     console.log('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     console.log('error connecting to MongoDB:', error.message)
+//   })
+
+//   const personSchema = new mongoose.Schema({
+//     name: {
+//       type: String,
+//       minlength: 3,
+//       required: true
+//     },
+//     number: {
+//       type: String,
+//       validate: {
+//         validator: function(v) {
+//           return /^\d{2,3}-\d{5,}$/.test(v) && v.length >= 8
+//         },
+//         message: props => `${props.value} is not a valid phone number!`
+//       },
+//       required: [true, 'User phone number required']
+//     },
+//   })
+
+// personSchema.set('toJSON', {
+//   transform: (document, returnedObject) => {
+//     returnedObject.id = returnedObject._id.toString()
+//     delete returnedObject._id
+//     delete returnedObject.__v
+//   }
+// })
+
+// module.exports = mongoose.model('Person', personSchema, 'people')
+
 const mongoose = require('mongoose')
 
-mongoose.set('strictQuery', false)
+const noteSchema = new mongoose.Schema({
+  content: {
+    type: String,
+    required: true,
+    minlength: 5
+  },
+  important: Boolean,
+})
 
-
-const url = process.env.MONGODB_URI
-
-
-console.log('connecting to', url)
-mongoose.connect(url)
-
-  .then(() => {
-    console.log('connected to MongoDB')
-  })
-  .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
-
-  const personSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      minlength: 3,
-      required: true
-    },
-    number: {
-      type: String,
-      validate: {
-        validator: function(v) {
-          return /^\d{2,3}-\d{5,}$/.test(v) && v.length >= 8
-        },
-        message: props => `${props.value} is not a valid phone number!`
-      },
-      required: [true, 'User phone number required']
-    },
-  })
-
-personSchema.set('toJSON', {
+noteSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -42,5 +64,4 @@ personSchema.set('toJSON', {
   }
 })
 
-
-module.exports = mongoose.model('Person', personSchema, 'people')
+module.exports = mongoose.model('Note', noteSchema)
