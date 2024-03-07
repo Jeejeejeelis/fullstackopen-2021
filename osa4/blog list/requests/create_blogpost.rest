@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "Delete Post",
-    "author": "Delete Mi",
-    "url": "delete.com",
-    "likes": "1"
+    "title": "Delete Post1",
+    "author": "Delete Mi1",
+    "url": "delete1.com",
+    "likes": 1
 }

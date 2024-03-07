@@ -63,7 +63,8 @@ Tasks:
         You can create a new database for your application with MongoDB Atlas, or use the same database from the previous part's exercises.
     - New database blogApp->blogs
     - add mongo.js, Mongo.js turned out to be a headache but now working. :)
-    - Verify it is possible to add blogs to the list and that application returns the added blogs at the correct endpoint. THIS IS WHERE I STOPPED! next steps: Should the rest post add to Mongo ? solve this and task 4.1 is done!
+    - Verify it is possible to add blogs to the list and that application returns the added blogs at the correct endpoint.  
+    Should the rest post add to Mongo ? solve this and task 4.1 is done! Posting to blogApp->blogs!!! I had wrong connection string in .env with my personApp, I changed this to blogApp and now it works!
 
 4.2 Refactor application to separate modules!
     - check index.js, old code commented!
