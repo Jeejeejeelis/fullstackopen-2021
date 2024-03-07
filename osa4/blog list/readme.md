@@ -77,5 +77,8 @@ Tasks:
     - utils/middleware.js from course material CONFIGURE THIS TO MY PROGRAM!
     - person.js old code commented and added course material for note.js CONFIGURE TO MY PROGRAM!
     - Check logger to be correct!
+    TODO: almost all done. However i'm currently printing my connection string to terminal which i dont like... DONE
+    Refactoring app.js times out my mongo conneciton for some reason....
+    refactoring done. I had to do quite a bit of changes to the project.
 
 
