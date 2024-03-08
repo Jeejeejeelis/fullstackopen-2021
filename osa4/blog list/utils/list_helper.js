@@ -12,9 +12,32 @@ const totalLikes = (blogs) => {
     }
     return sum;
 }
+//4.5*
+const favoriteBlog = (blogs) => {
+    // check if blogs is empty
+    if(blogs.length === 0) {
+        return null;
+    }
+
+    let favorite = blogs[0];
+    // find the last blog post with most likes. Only necessary to return 1 blog!
+    for(let i = 1; i < blogs.length; i++) {
+        if(blogs[i].likes > favorite.likes) {
+            favorite = blogs[i];
+        }
+    }
+// returned format!
+    return {
+        title: favorite.title,
+        author: favorite.author,
+        likes: favorite.likes
+    };
+}
+
 module.exports = {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog
     }
 
 // Course file for_testing.js

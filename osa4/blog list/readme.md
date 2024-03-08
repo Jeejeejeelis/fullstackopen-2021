@@ -152,3 +152,23 @@ You are bound to run into problems while writing tests. Remember the things that
 
 4.4 seems to be done? all tests return pass... 
 
+4.5*: Helper Functions and Unit Tests, step 3
+Define a new favoriteBlog function that receives a list of blogs as a parameter. The function finds out which blog has the most likes. If there are many top favorites, it is enough to return one of them.
+
+The value returned by the function could be in the following format:
+
+{
+  title: "Canonical string reduction",
+  author: "Edsger W. Dijkstra",
+  likes: 12
+}
+NB when you are comparing objects, the deepStrictEqual method is probably what you want to use, since the strictEqual tries to verify that the two values are the same value, and not just that they contain the same properties. For differences between various assert module functions, you can refer to this Stack Overflow answer.
+
+Write the tests for this exercise inside of a new describe block. Do the same for the remaining exercises as well.
+TO DO:
+    - Define a new favoriteBlog function in list_helper.js that receives a list of blogs as a parameter. The function finds out which blog has the most likes. If there are many top favorites, it is enough to return one of them. DONE
+    - create similar tests as 4.4 but with deepStrictEqual as instructed. DONE
+    - REMEMBER TO DO THIS FOR REMAINING EXERCISES ASWELL!!!!
+    - npm test ran with 7 passes after a couple of tries!
+    - I hope these tests are sufficient?
+4.5* done!
