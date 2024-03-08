@@ -71,10 +71,50 @@ const mostBlogs = (blogs) => {
         blogs: mostBlogs
     };
 }
+//4.7* almost copy paste of 4.6*
+const mostLikes = (blogs) => {
+    // check if blogs is empty
+    if(blogs.length === 0) {
+        return null;
+    }
+    let authorsOfBlogs = blogs.map(blog => blog.author);
+    //Set automatically removes duplicates!
+    let uniqueAuthors = [...new Set(authorsOfBlogs)];
+
+    let authorLikeCount = uniqueAuthors.map(uniqueAuthor => {
+        return {
+            author: uniqueAuthor,
+            likes: 0
+        };
+    });
+    // Iterate through blogs and add likes if a blog with the authors name is found!
+    for(let i = 0; i < blogs.length; i++) {
+        for(let j = 0; j < authorLikeCount.length; j++){
+            if (authorLikeCount[j].author == blogs[i].author) {
+                authorLikeCount[j].likes += blogs[i].likes;
+            }
+        }    
+    }
+    let mostLikes = 0
+    let mostAuthor = ""
+    for(let i = 0; i < authorLikeCount.length; i++) {
+        if(authorLikeCount[i].likes >= mostLikes){
+            mostLikes = authorLikeCount[i].likes
+            mostAuthor = authorLikeCount[i].author
+        }
+    }
+
+    // returned format!
+    return {
+        author: mostAuthor,
+        likes: mostLikes
+    };
+}
 
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
     }
