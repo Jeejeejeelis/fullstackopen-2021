@@ -1,4 +1,5 @@
 kill -9 $(lsof -t -i:3003)
+npm run dev      to run in dev mode!
 4.1 
     Turn the application into a functioning npm project. To keep your development productive, configure the application to be executed with nodemon. You can create a new database for your application with MongoDB Atlas, or use the same database from the previous part's exercises.
 
@@ -81,4 +82,43 @@ Tasks:
     Refactoring app.js times out my mongo conneciton for some reason....
     refactoring done. I had to do quite a bit of changes to the project.
 
+4.3
+Let's create a collection of helper functions that are metest showing described blocksh the blog list. Create the functions into a file called utils/list_helper.js. Write your tests into an appropriately named test file under the tests directory.
+
+Helper Functions and Unit Tests, step 1
+First, define a dummy function that receives an array of blog posts as a parameter and always returns the value 1. The contents of the list_helper.js file at this point should be the following:
+    const dummy = (blogs) => {
+    // ...
+    }
+
+    module.exports = {
+    dummy
+    }
+
+Verify that your test configuration works with the following test:
+    const { test, describe } = require('node:test')
+    const assert = require('node:assert')
+    const listHelper = require('../utils/list_helper')
+
+    test('dummy returns one', () => {
+    const blogs = []
+
+    const result = listHelper.dummy(blogs)
+    assert.strictEqual(result, 1)
+    })
+TODO: 
+- create file utils/list_helper.js and copy course contents there! DONE
+- Define the npm script test for the test execution. DONE - package.json modified!
+- Create test directory and appropriately named test file. DONE dummy.test.js created, like in course contents(reverse.test.js).
+- Guessing that i run it with npm test? Yes this works! DONE
+(160.394455ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 167.01173
+4.3 DONE!
 
