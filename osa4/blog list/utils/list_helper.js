@@ -21,42 +21,60 @@ const favoriteBlog = (blogs) => {
 
     let favorite = blogs[0];
     // find the last blog post with most likes. Only necessary to return 1 blog!
-    for(let i = 1; i < blogs.length; i++) {
+    for(let i = 0; i < blogs.length; i++) {
         if(blogs[i].likes > favorite.likes) {
             favorite = blogs[i];
         }
     }
-// returned format!
     return {
         title: favorite.title,
         author: favorite.author,
         likes: favorite.likes
     };
 }
+//4.6*
+const mostBlogs = (blogs) => {
+    // check if blogs is empty
+    if(blogs.length === 0) {
+        return null;
+    }
+    let authorsOfBlogs = blogs.map(blog => blog.author);
+    //Set automatically removes duplicates!
+    let uniqueAuthors = [...new Set(authorsOfBlogs)];
+
+    let authorBlogCounts = uniqueAuthors.map(uniqueAuthor => {
+        return {
+            author: uniqueAuthor,
+            blogs: 0
+        };
+    });
+    // Iterate through blogs and add blog count if a blog with the authors name is found!
+    for(let i = 0; i < blogs.length; i++) {
+        for(let j = 0; j < authorBlogCounts.length; j++){
+            if (authorBlogCounts[j].author == blogs[i].author) {
+                authorBlogCounts[j].blogs++;
+            }
+        }    
+    }
+    let mostBlogs = 0
+    let mostAuthor = ""
+    for(let i = 0; i < authorBlogCounts.length; i++) {
+        if(authorBlogCounts[i].blogs >= mostBlogs){
+            mostBlogs = authorBlogCounts[i].blogs
+            mostAuthor = authorBlogCounts[i].author
+        }
+    }
+
+    // returned format!
+    return {
+        author: mostAuthor,
+        blogs: mostBlogs
+    };
+}
 
 module.exports = {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    mostBlogs
     }
-
-// Course file for_testing.js
-// const reverse = (string) => {
-//     return string
-//         .split('')
-//         .reverse()
-//         .join('')
-//     }
-    
-//     const average = (array) => {
-//     const reducer = (sum, item) => {
-//         return sum + item
-//     }
-    
-//     return array.reduce(reducer, 0) / array.length
-//     }
-    
-//     module.exports = {
-//     reverse,
-//     average,
-//     }
