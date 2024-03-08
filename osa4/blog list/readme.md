@@ -171,7 +171,7 @@ TO DO:
     - REMEMBER TO DO THIS FOR REMAINING EXERCISES ASWELL!!!!
     - npm test ran with 7 passes after a couple of tries!
     - I hope these tests are sufficient?
-4.5* done!
+4.5* done! Nope it had some errors!
 
 4.6*: Helper Functions and Unit Tests, step 4
 This and the next exercise are a little bit more challenging. Finishing these two exercises is not required to advance in the course material, so it may be a good idea to return to these once you're done going through the material for this part in its entirety.
@@ -188,4 +188,33 @@ TODO:
  - define function mostBlogs in list_helper.js
  - Function returns the author who has the largest amount of blogs. The return value also contains the number of blogs the top author has. DONE! now test it if it's correct
  - Create new describe tests like in 4.5! I can use the same test set as before since there is authors with multiple posts! DONE!
- - test this!
+ - test this! Somehow 4.5* was broken. i mightve broken it... fixed some errors in mostBlogs. Now tests go through!
+ 4.6* DONE!
+
+
+4.7*: Helper Functions and Unit Tests, step 5
+Define a function called mostLikes that receives an array of blogs as its parameter. The function returns the author, whose blog posts have the largest amount of likes. The return value also contains the total number of likes that the author has received:
+    {
+    author: "Edsger W. Dijkstra",
+    likes: 17
+    }
+If there are many top bloggers, then it is enough to show any one of them.
+TODO: 
+- define function mostLikes in list_helper.js
+- The function returns the author, whose blog posts have the largest amount of likes.
+- same as 4.6* but now i sum the likes...
+- Easy. DONE!
+
+Warning: If you find yourself using async/await and then methods in the same code, it is almost guaranteed that you are doing something wrong. Use one or the other and don't mix the two.
+
+
+4.8: Blog List Tests, step 1
+Use the SuperTest library for writing a test that makes an HTTP GET request to the /api/blogs URL. Verify that the blog list application returns the correct amount of blog posts in the JSON format.
+
+Once the test is finished, refactor the route handler to use the async/await syntax instead of promises.
+
+Notice that you will have to make similar changes to the code that were made in the material, like defining the test environment so that you can write tests that use separate databases.
+
+NB: when you are writing your tests it is better to not execute them all, only execute the ones you are working on. Read more about this here.
+
+TODO: I stop here! I have not done anything to 4.8 yet :)
