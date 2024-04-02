@@ -4,6 +4,7 @@ const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
 const Blog = require('../models/blog')
+const assert = require('assert');
 const api = supertest(app)
 
 // Let's initialize the database before every test with the beforeEach function:
@@ -121,7 +122,7 @@ test('a specific blog can be viewed', async () => {
     assert.deepStrictEqual(resultBlog.body, blogToView)
   })
   
-  test('a blog can be deleted', async () => {
+test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
   
@@ -136,6 +137,13 @@ test('a specific blog can be viewed', async () => {
   
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
   })
+
+//4.9
+test('unique identifier property of the blog posts is named id', async () => {
+    const response = await api.get('/api/blogs')
+    assert(response.body[0].id, 'id property is not defined')
+})
+  
 
 after(async () => {
   await mongoose.connection.close()

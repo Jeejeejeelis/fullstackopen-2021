@@ -256,5 +256,20 @@ npm test -- --test-name-pattern='notes are returned as json'
 
 It seems all my prework has already done this task. 4.8 done!
 
+4.9: Blog List Tests, step 2
+Write a test that verifies that the unique identifier property of the blog posts is named id, by default the database names the property _id.
+
+Make the required changes to the code so that it passes the test. The toJSON method discussed in part 3 is an appropriate place for defining the id parameter.
+
+- Added new test, prework had done rest like toJSON. Added require Assert so my test works.
+
+npm test -- --test-name-pattern='unique identifier property of the blog posts is named id'
+4.9 done!
+
+4.10: Blog List Tests, step 3
+Write a test that verifies that making an HTTP POST request to the /api/blogs URL successfully creates a new blog post. At the very least, verify that the total number of blogs in the system is increased by one. You can also verify that the content of the blog post is saved correctly to the database.
+
+Once the test is finished, refactor the operation to use async/await instead of promises.
+
 
 
