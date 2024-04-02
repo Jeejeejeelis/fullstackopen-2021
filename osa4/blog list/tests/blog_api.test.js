@@ -63,7 +63,8 @@ test('the title of the first blog is TestPost1', async () => {
     assert(contents.includes('TestPost1'))
 })
 
-test('a valid blog can be added ', async () => {
+//4.10
+test('a valid blog can be added', async () => {
     const newBlog = {
         "title": "async/await simplifies making async calls",
         "author": "asyncTest Author",
@@ -89,6 +90,9 @@ test('a valid blog can be added ', async () => {
     const titles = blogsAtEnd.map(n => n.title)
   
     assert(titles.includes("async/await simplifies making async calls"))
+
+    // beforeEach deletes post from database so let's log it to see that it is working!
+    console.log('Blogs in database after test:', blogsAtEnd)
 })
 
 test('blog without title is not added', async () => {

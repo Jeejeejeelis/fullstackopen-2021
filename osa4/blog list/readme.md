@@ -271,5 +271,12 @@ Write a test that verifies that making an HTTP POST request to the /api/blogs UR
 
 Once the test is finished, refactor the operation to use async/await instead of promises.
 
+- Did this when reading material and doing prework. Let's test if it works!
+npm test -- --test-name-pattern='a valid blog can be added'
+
+- Added log to show that new post really went to database. beforeEach deletes it before i can see it in mongo...
+
+-Tests through! 4.10 done!
+
 
 
