@@ -207,6 +207,40 @@ TODO:
 
 Warning: If you find yourself using async/await and then methods in the same code, it is almost guaranteed that you are doing something wrong. Use one or the other and don't mix the two.
 
+4.8-> prework:
+
+- Next, let's change the scripts in our notes application package.json file, so that when tests are run, NODE_ENV gets the value tests.
+Original if we still need it:
+        "test": "node --test",
+        "start": "node index.js",
+        "dev": "nodemon index.js"
+
+- Let's make some changes to the module that defines the application's configuration in utils/config.js:
+    Commented earlier code.
+- Let's write our first test in the tests/note_api.test.js file:
+- The tests only use the Express application defined in the app.js file, which does not listen to any ports:
+    Maybe i need this?
+    Index.js:
+        const mongoose = require('mongoose')
+        const supertest = require('supertest')
+        const app = require('../app')
+
+        const api = supertest(app)
+- The middleware that outputs information about the HTTP requests is obstructing the test execution output. Let us modify the logger so that it does not print to the console in test mode: DONE
+- I can test with this:
+    npm test -- --test-only
+-Another way to test but then i think i need to remove .only from tests:
+    npm test -- --test-name-pattern="the title of the first blog is TestPost1"
+- Test all with blogs in their name:
+    npm run test -- --test-name-pattern="blogs"
+
+Now im at async/await part!
+
+- Added test_helper.js
+
+Changed BlogsRouter.delete to use express-async-errors library. If this works change all the routes simirlarly! 
+
+Start of 4.8!!!
 
 4.8: Blog List Tests, step 1
 Use the SuperTest library for writing a test that makes an HTTP GET request to the /api/blogs URL. Verify that the blog list application returns the correct amount of blog posts in the JSON format.
@@ -217,4 +251,10 @@ Notice that you will have to make similar changes to the code that were made in 
 
 NB: when you are writing your tests it is better to not execute them all, only execute the ones you are working on. Read more about this here.
 
-TODO: I stop here! I have not done anything to 4.8 yet :)
+npm run test -- --test-name-pattern="blogs"
+npm test -- --test-name-pattern='notes are returned as json'
+
+It seems all my prework has already done this task. 4.8 done!
+
+
+
