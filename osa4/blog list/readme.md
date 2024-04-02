@@ -278,5 +278,19 @@ npm test -- --test-name-pattern='a valid blog can be added'
 
 -Tests through! 4.10 done!
 
+4.11*: Blog List Tests, step 4
+Write a test that verifies that if the likes property is missing from the request, it will default to the value 0. Do not test the other properties of the created blogs yet.
+
+Make the required changes to the code so that it passes the test.
+
+- Modify prework test to account for no likes.  Done
+- Add defaulting value to Model!
+
+npm test -- --test-name-pattern='blog without likes is not added'
+
+Fixed a few minor problems and added log to see results.
+Test ok! 4.11 done!
+
+
 
 

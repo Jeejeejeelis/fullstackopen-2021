@@ -95,22 +95,27 @@ test('a valid blog can be added', async () => {
     console.log('Blogs in database after test:', blogsAtEnd)
 })
 
-test('blog without title is not added', async () => {
+//4.11
+test('blog without likes is not added', async () => {
     const newBlog = {
-        "author": "asyncTest Author",
-        "url": "asyncTest.com",
-        "likes": 1
+        "title": "no Likes Test",
+        "author": "noLikesTest Author",
+        "url": "noLikesTest.com"
     }
   
-    await api
+    const response = await api
       .post('/api/blogs')
       .send(newBlog)
-      .expect(400)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    assert.strictEqual(response.body.likes, 0)
   
     // const response = await api.get('/api/blogs')
     // assert.strictEqual(response.body.length, initialBlogs.length)
     const blogsAtEnd = await helper.blogsInDb()
-    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+    console.log('Blogs in database after test:', blogsAtEnd)
 })
 
 test('a specific blog can be viewed', async () => {
