@@ -39,8 +39,14 @@ blogsRouter.get('/:id', async (request, response, next) => {
       }
 })
 
+//4.12
 blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
+
+    //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
+    if (body.title === undefined || body.url === undefined) {
+        return response.status(400).end()
+    }
 
     const blog = new Blog({
         title: body.title,
@@ -48,19 +54,16 @@ blogsRouter.post('/', async (request, response, next) => {
         url: body.url,
         likes: body.likes
     })
+    //   blog.save()
+    //     .then(savedBlog => {
+    //       // response.json(savedBlog)
+    //       response.status(201).json(savedBlog)
+    //     })
+    //     .catch(error => next(error))
 
-//   blog.save()
-//     .then(savedBlog => {
-//       // response.json(savedBlog)
-//       response.status(201).json(savedBlog)
-//     })
-//     .catch(error => next(error))
-    try {
-        const savedBlog = await blog.save()
-        response.status(201).json(savedBlog)
-        } catch(exception) {
-            next(exception)
-        }
+    // use the express-async-errors for cleaner syntax :)
+    const savedBlog = await blog.save()
+    response.status(201).json(savedBlog)
 })
 
 blogsRouter.delete('/:id', async (request, response, next) => {

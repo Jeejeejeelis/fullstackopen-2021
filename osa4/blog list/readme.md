@@ -292,5 +292,17 @@ Fixed a few minor problems and added log to see results.
 Test ok! 4.11 done!
 
 
+4.12*: Blog List tests, step 5
+Write tests related to creating new blogs via the /api/blogs endpoint, that verify that if the title or url properties are missing from the request data, the backend responds to the request with the status code 400 Bad Request.
+
+Make the required changes to the code so that it passes the test.
+
+- Modify post handler in blogrouter. 
+- Add new test for it! exoect error 400!
+
+npm test -- --test-name-pattern='blog without title is not added'
+Test works! 4.12* done!
+
+
 
 

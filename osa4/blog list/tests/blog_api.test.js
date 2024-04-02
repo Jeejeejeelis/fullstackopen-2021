@@ -7,6 +7,8 @@ const Blog = require('../models/blog')
 const assert = require('assert');
 const api = supertest(app)
 
+require('express-async-errors')
+
 // Let's initialize the database before every test with the beforeEach function:
 // beforeEach(async () => {
 //     await Blog.deleteMany({})
@@ -116,6 +118,20 @@ test('blog without likes is not added', async () => {
     const blogsAtEnd = await helper.blogsInDb()
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
     console.log('Blogs in database after test:', blogsAtEnd)
+})
+
+//4.12 Add test without title
+test('blog without title is not added', async () => {
+    const newBlog = {
+        "author": "Test Author",
+        "url": "test.com",
+        "likes": 1
+    }
+  
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
 })
 
 test('a specific blog can be viewed', async () => {
