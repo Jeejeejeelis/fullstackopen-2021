@@ -305,5 +305,35 @@ Test works! 4.12* done!
 
 Next 4.13 and 4.14!
 
+4.13 Blog List Expansions, step 1
+Implement functionality for deleting a single blog post resource.
+- controllers/blogs.js implement deletion with async
+        - use express-async-errors for cleaner code
+        - I've done these ini prework already!
+
+Use the async/await syntax. Follow RESTful conventions when defining the HTTP API.
+
+Implement tests for the functionality.
+npm test -- --test-name-pattern='a blog can be deleted'
+Added console log to test to see if it returns a list where first blogpost is deleted.
+It seems to work.
+Used async/await!
+Used RESTful conventions!
+4.13 done!
 
 
+4.14 Blog List Expansions, step 2
+Implement functionality for updating the information of an individual blog post.
+
+Use async/await.
+
+The application mostly needs to update the number of likes for a blog post. You can implement this functionality the same way that we implemented updating notes in part 3.
+
+Implement tests for the functionality.
+- Add async/await to put method!
+- use express-async-errors for cleaner code!
+- create test for this!
+- console log to see everything is working ok!
+npm test -- --test-name-pattern='blog can be updated'
+- Used a little more time to make the put method to be able to update anything, not just likes!
+4.14 done!

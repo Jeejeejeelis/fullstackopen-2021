@@ -171,6 +171,50 @@ test('unique identifier property of the blog posts is named id', async () => {
     const response = await api.get('/api/blogs')
     assert(response.body[0].id, 'id property is not defined')
 })
+
+
+//4.14
+test('blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+    
+    // Comment out title, author, url or likes to test if it updates only the parameters that we give!
+    const newBlog = {
+        title: 'Updated Title',
+        author: 'Updated Author',
+        url: 'http://updated.com',
+        likes: 5,
+    }
+  
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(newBlog)
+      .expect(200)
+  
+    const blogsAtEnd = await helper.blogsInDb()
+  
+    // const titles = blogsAtEnd.map(r => r.title)
+    // assert(titles.includes(newBlog.title))
+    
+    // update only given parameters!
+    const updatedBlog = blogsAtEnd.find(blog => blog.id === blogToUpdate.id)
+
+    if (newBlog.title !== undefined) {
+        assert.strictEqual(updatedBlog.title, newBlog.title)
+    }
+    if (newBlog.author !== undefined){
+        assert.strictEqual(updatedBlog.author, newBlog.author)
+    }
+    if (newBlog.url !== undefined){
+        assert.strictEqual(updatedBlog.url, newBlog.url)
+    }
+    if (newBlog.likes !== undefined){
+        assert.strictEqual(updatedBlog.likes, newBlog.likes)
+    }
+  
+    console.log('Blogs in database after test:', blogsAtEnd)
+})
+
   
 
 after(async () => {
