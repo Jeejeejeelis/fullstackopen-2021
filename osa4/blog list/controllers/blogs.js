@@ -66,6 +66,7 @@ blogsRouter.post('/', async (request, response, next) => {
     response.status(201).json(savedBlog)
 })
 
+//4.13
 blogsRouter.delete('/:id', async (request, response, next) => {
 //   Blog.findByIdAndRemove(request.params.id)
 //     .then(() => {

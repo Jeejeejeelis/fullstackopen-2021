@@ -146,7 +146,8 @@ test('a specific blog can be viewed', async () => {
   
     assert.deepStrictEqual(resultBlog.body, blogToView)
   })
-  
+
+//4.13
 test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
@@ -161,6 +162,8 @@ test('a blog can be deleted', async () => {
     assert(!titles.includes(blogToDelete.title))
   
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
+    // beforeEach deletes post from database so let's log it to see that it is working!
+    console.log('Blogs in database after test:', blogsAtEnd)
   })
 
 //4.9
