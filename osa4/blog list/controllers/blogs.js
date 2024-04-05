@@ -57,14 +57,14 @@ blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
 
     // 4.17
-    const user = await User.findOne()
+    //const user = await User.findOne()
 
     //added Bearer schema
-    // const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-    // if (!decodedToken.id) {
-    //   return response.status(401).json({ error: 'token invalid' })
-    // }
-    // //const user = await User.findById(decodedToken.id)
+    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+    const user = await User.findById(decodedToken.id)
 
     // //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
     if (body.title === undefined || body.url === undefined) {
@@ -76,7 +76,7 @@ blogsRouter.post('/', async (request, response, next) => {
         author: body.author,
         url: body.url,
         likes: body.likes,
-        user: user._id
+        user: user.id
     })
     //   blog.save()
     //     .then(savedBlog => {
@@ -88,11 +88,11 @@ blogsRouter.post('/', async (request, response, next) => {
     // use the express-async-errors for cleaner syntax :)
     const savedBlog = await blog.save()
 
-    user.blogs = user.blogs.concat(savedBlog._id)
+    user.blogs = user.blogs.concat(savedBlog.id)
     await user.save()
 
     //4.17
-    const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 }).execPopulate()
+    // const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 }).execPopulate()
 
     response.status(201).json(savedBlog)
 })

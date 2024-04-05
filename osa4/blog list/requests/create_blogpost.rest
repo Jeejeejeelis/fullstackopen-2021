@@ -9,11 +9,11 @@
 # }
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2NjBmZTAxY2ViM2UyNDU1ZmFjMmU3NjMiLCJpYXQiOjE3MTIzMTY1MTR9.ExPYUa7bfONqrQdptCSsgEm7oCe2cvA_H_aTpE4j5Rw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjQxOXRlc3QyIiwiaWQiOiI2NjEwMWNjNzQzYWU1Y2RiNzE0NGFkYzkiLCJpYXQiOjE3MTIzMzE5ODcsImV4cCI6MTcxMjMzNTU4N30.qD-qS0ztWTC7E-4nOGmZ4DvleuPhhohRHWvyG7SQHNQ
 
 {
-    "title": "test Title",
-    "author": "TestAuthor",
-    "url": "tester.com",
-    "likes": 5
+    "title": "create new post 4.19",
+    "author": "4.19r",
+    "url": "419.com",
+    "likes": 419
 }

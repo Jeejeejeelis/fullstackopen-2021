@@ -431,3 +431,6 @@ Modify listing all blogs so that the creator's user information is displayed wit
 Implement token-based authentication according to part 4 chapter Token authentication.
 
 I have done this already!
+
+4.19 I had done it already, however i had to modify my code for the tasks 4.16 and 4.17. Now i modified it back!
+4.19 done!
