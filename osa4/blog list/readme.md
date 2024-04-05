@@ -426,3 +426,8 @@ Modify adding new blogs so that when a new blog is created, any user from the da
 
 Modify listing all blogs so that the creator's user information is displayed with the blog:
 4.17
+
+4.18: Blog List Expansion, step 6
+Implement token-based authentication according to part 4 chapter Token authentication.
+
+I have done this already!
