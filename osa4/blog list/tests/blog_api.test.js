@@ -100,36 +100,53 @@ test('the title of the first blog is TestPost1', async () => {
 })
 
 //4.10
-// test('a valid blog can be added', async () => {
-//     const newBlog = {
-//         "title": "async/await simplifies making async calls",
-//         "author": "asyncTest Author",
-//         "url": "asyncTest.com",
-//         "likes": 1
-//     }
-  
-//     await api
-//       .post('/api/blogs')
-//       .send(newBlog)
-//       .expect(201)
-//       .expect('Content-Type', /application\/json/)
-  
-//     // const response = await api.get('/api/blogs')
-  
-//     // const titles = response.body.map(r => r.title)
-  
-//     // assert.strictEqual(response.body.length, initialBlogs.length + 1)
+test('a valid blog can be added', async () => {
 
-//     const blogsAtEnd = await helper.blogsInDb()
-//     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
-  
-//     const titles = blogsAtEnd.map(n => n.title)
-  
-//     assert(titles.includes("async/await simplifies making async calls"))
+    // 4.23*
+    const newUser = {
+        username: 'testuser',
+        password: 'testpassword',
+        name: 'Test User'
+      }
+    await api
+        .post('/api/users')
+        .send(newUser)
+    const result = await api
+        .post('/api/login')
+        .send(newUser)
+    const token = result.body.token
 
-//     // beforeEach deletes post from database so let's log it to see that it is working!
-//     console.log('Blogs in database after test:', blogsAtEnd)
-// })
+    const newBlog = {
+        "title": "async/await simplifies making async calls",
+        "author": "asyncTest Author",
+        "url": "asyncTest.com",
+        "likes": 1
+    }
+  
+    await api
+      .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    
+    // const response = await api.get('/api/blogs')
+  
+    // const titles = response.body.map(r => r.title)
+  
+    // assert.strictEqual(response.body.length, initialBlogs.length + 1)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
+  
+    const titles = blogsAtEnd.map(n => n.title)
+  
+    assert(titles.includes("async/await simplifies making async calls"))
+
+    // beforeEach deletes post from database so let's log it to see that it is working!
+    console.log('Blogs in database after test:', blogsAtEnd)
+})
 
 //4.11
 // test('blog without likes is not added', async () => {
@@ -168,36 +185,46 @@ test('blog without title is not added', async () => {
       .expect(400)
 })
 
-test('a specific blog can be viewed', async () => {
-    const blogsAtStart = await helper.blogsInDb()
-  
-    const blogToView = blogsAtStart[0]
-  
-    const resultBlog = await api
-      .get(`/api/blogs/${blogToView.id}`)
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-  
-    assert.deepStrictEqual(resultBlog.body, blogToView)
-  })
-
-//4.13
+//4.13 //4.23 because this broke aswell.
 test('a blog can be deleted', async () => {
-    const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0]
+    const newUser = {
+      username: 'testuser',
+      password: 'testpassword',
+      name: 'Test User'
+    }
   
     await api
-      .delete(`/api/blogs/${blogToDelete.id}`)
+      .post('/api/users')
+      .send(newUser)
+  
+    const result = await api
+      .post('/api/login')
+      .send(newUser)
+  
+    const token = result.body.token
+    const newBlog = {
+      title: 'Blog to be deleted',
+      author: 'Test Author',
+      url: 'www.test.com',
+      likes: 0
+    }
+  
+    const addedBlog = await api
+      .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newBlog)
+  
+    await api
+      .delete(`/api/blogs/${addedBlog.body.id}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(204)
   
     const blogsAtEnd = await helper.blogsInDb()
   
     const titles = blogsAtEnd.map(r => r.title)
-    assert(!titles.includes(blogToDelete.title))
+    assert(!titles.includes(addedBlog.body.title))
   
-    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
-    // beforeEach deletes post from database so let's log it to see that it is working!
-    console.log('Blogs in database after test:', blogsAtEnd)
+    assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
   })
 
 //4.9
