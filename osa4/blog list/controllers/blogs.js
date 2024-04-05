@@ -1,9 +1,19 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const config = require('../utils/config')
 const logger = require('../utils/logger')
+const jwt = require('jsonwebtoken')
 
 logger.info(`Server running on port ${config.PORT}`)
+
+const getTokenFrom = request => {
+    const authorization = request.get('authorization')
+    if (authorization && authorization.startsWith('Bearer ')) {
+      return authorization.replace('Bearer ', '')
+    }
+    return null
+  }
 
 // Refactor this into asynchronous code
 // blogsRouter.get('/', (request, response) => {
@@ -43,6 +53,13 @@ blogsRouter.get('/:id', async (request, response, next) => {
 blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
 
+    //added Bearer schema
+    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: 'token invalid' })
+    }
+    const user = await User.findById(decodedToken.id)
+
     //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
     if (body.title === undefined || body.url === undefined) {
         return response.status(400).end()
@@ -52,7 +69,8 @@ blogsRouter.post('/', async (request, response, next) => {
         title: body.title,
         author: body.author,
         url: body.url,
-        likes: body.likes
+        likes: body.likes,
+        user: user.id
     })
     //   blog.save()
     //     .then(savedBlog => {
@@ -63,6 +81,10 @@ blogsRouter.post('/', async (request, response, next) => {
 
     // use the express-async-errors for cleaner syntax :)
     const savedBlog = await blog.save()
+
+    user.blogs = user.blogs.concat(savedBlog._id)
+    await user.save()
+
     response.status(201).json(savedBlog)
 })
 

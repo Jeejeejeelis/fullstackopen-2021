@@ -1,9 +1,19 @@
+# POST http://localhost:3003/api/blogs
+# content-type: application/json
+
+# {
+#     "title": "Delete Post5",
+#     "author": "Delete Mi5",
+#     "url": "delete5.com",
+#     "likes": 5
+# }
 POST http://localhost:3003/api/blogs
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaWQiOiI2NjBmZTAxY2ViM2UyNDU1ZmFjMmU3NjMiLCJpYXQiOjE3MTIzMTY1MTR9.ExPYUa7bfONqrQdptCSsgEm7oCe2cvA_H_aTpE4j5Rw
 
 {
-    "title": "Delete Post5",
-    "author": "Delete Mi5",
-    "url": "delete5.com",
+    "title": "test Title",
+    "author": "TestAuthor",
+    "url": "tester.com",
     "likes": 5
 }

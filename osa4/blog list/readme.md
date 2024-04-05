@@ -337,3 +337,27 @@ Implement tests for the functionality.
 npm test -- --test-name-pattern='blog can be updated'
 - Used a little more time to make the put method to be able to update anything, not just likes!
 4.14 done!
+
+
+In the next exercises, the basics of user management will be implemented for the Bloglist application. The safest way is to follow the course material from part 4 chapter User administration to the chapter Token authentication. You can of course also use your creativity.
+
+One more warning: If you notice you are mixing async/await and then calls, it is 99% certain you are doing something wrong. Use either or, never both.
+
+4.15: Blog List Expansion, step 3
+Implement a way to create new users by doing an HTTP POST request to address api/users. Users have a username, password and name.
+
+Do not save passwords to the database as clear text, but use the bcrypt library like we did in part 4 chapter Creating users.
+
+NB Some Windows users have had problems with bcrypt. If you run into problems, remove the library with command
+
+npm uninstall bcrypt copy
+and install bcryptjs instead.
+
+Implement a way to see the details of all users by doing a suitable HTTP request.
+
+To do: 
+    prework: follow instructions from user administration to token authentication
+    - Add bearer scheme and change creating new notes!
+     - Added code to middleware.js
+     - add path to login.js to app.js
+npm test -- --test-name-pattern='creation succeeds with a fresh username'
