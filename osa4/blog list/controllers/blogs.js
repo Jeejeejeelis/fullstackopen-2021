@@ -64,7 +64,9 @@ blogsRouter.post('/', async (request, response, next) => {
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
-    const user = await User.findById(decodedToken.id)
+    //const user = await User.findById(decodedToken.id)
+    //4.22*
+    const user = request.user
 
     // //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
     if (body.title === undefined || body.url === undefined) {
@@ -119,18 +121,18 @@ blogsRouter.delete('/:id', async (request, response, next) => {
     if (!blog) {
         return response.status(404).json({ error: 'blog not found' })
     }
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!request.token || !decodedToken.id) {
+    //4.22*
+    const user = request.user
+    //const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (!user) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
-    if (blog.user.toString() !== decodedToken.id.toString()) {
+    if (blog.user.toString() !== user._id.toString()) {
         return response.status(401).json({ error: 'only the creator can delete blogs' })
     }
 
     await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
-
-
 })
 
 //4.14

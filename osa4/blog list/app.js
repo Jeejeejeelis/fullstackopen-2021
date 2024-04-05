@@ -18,11 +18,15 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 //4.20*
-app.use(middleware.tokenExtractor)
-
-app.use('/api/blogs', blogsRouter)
+//app.use(middleware.tokenExtractor)
+//4.22*
+app.use('/api/blogs', middleware.tokenExtractor, middleware.userExtractor, blogsRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
+
+// app.use('/api/blogs', blogsRouter)
+// app.use('/api/login', loginRouter)
+// app.use('/api/users', usersRouter)
 
 
 app.use(middleware.unknownEndpoint)

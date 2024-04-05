@@ -472,3 +472,59 @@ the field blog.user does not contain a string, but an object. So if you want to 
     if ( blog.user.toString() === userid.toString() ) ...
 
 Did all the stuff tested with REST client. Logged in, posted with that user, then deleted with that user! Also tried to delete post that was not theirs and it failed as expected!
+
+4.21* done!
+
+
+4.22*: Blog List Expansion, step 10
+Both the new blog creation and blog deletion need to find out the identity of the user who is doing the operation. The middleware tokenExtractor that we did in exercise 4.20 helps but still both the handlers of post and delete operations need to find out who the user holding a specific token is.
+
+Now create a new middleware userExtractor, that finds out the user and sets it to the request object. When you register the middleware in app.js
+
+    app.use(middleware.userExtractor)copy
+
+the user will be set in the field request.user:
+
+    blogsRouter.post('/', async (request, response) => {
+    // get user from request object
+    const user = request.user
+    // ..
+    })
+
+    blogsRouter.delete('/:id', async (request, response) => {
+    // get user from request object
+    const user = request.user
+    // ..
+    })
+Note that it is possible to register a middleware only for a specific set of routes. So instead of using userExtractor with all the routes,
+
+    const middleware = require('../utils/middleware');
+    // ...
+
+    // use the middleware in all routes
+    app.use(middleware.userExtractor)
+
+    app.use('/api/blogs', blogsRouter)  
+    app.use('/api/users', usersRouter)
+    app.use('/api/login', loginRouter)
+
+we could register it to be only executed with path /api/blogs routes:
+
+    const middleware = require('../utils/middleware');
+    // ...
+
+    // use the middleware only in /api/blogs routes
+    app.use('/api/blogs', middleware.userExtractor, blogsRouter)
+    app.use('/api/users', usersRouter)
+    app.use('/api/login', loginRouter)
+
+As can be seen, this happens by chaining multiple middlewares as the parameter of function use. It would also be possible to register a middleware only for a specific operation:
+
+    const middleware = require('../utils/middleware');
+    // ...
+
+    router.post('/', middleware.userExtractor, async (request, response) => {
+    // ...
+    }
+
+completed!!!! 4.22* done tested with vs rest client.
