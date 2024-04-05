@@ -22,45 +22,51 @@ const getTokenFrom = request => {
 //   })
 // })
 
+//4.17
 blogsRouter.get('/', async (request, response) => { 
-    const blogs = await Blog.find({})
+    const blogs = await Blog
+    .find({}).populate('user', { username: 1, name: 1})
+    
     response.json(blogs)
   })
 
-blogsRouter.get('/:id', async (request, response, next) => {
-//   Blog.findById(request.params.id)
-//     .then(blog => {
-//       if (blog) {
-//         response.json(blog)
-//       } else {
-//         response.status(404).end()
+// blogsRouter.get('/:id', async (request, response, next) => {
+// //   Blog.findById(request.params.id)
+// //     .then(blog => {
+// //       if (blog) {
+// //         response.json(blog)
+// //       } else {
+// //         response.status(404).end()
+// //       }
+// //     })
+// //     .catch(error => next(error))
+//     try {
+//         const blog = await Blog.findById(request.params.id)
+//         if (blog) {
+//           response.json(blog)
+//         } else {
+//           response.status(404).end()
+//         }
+//       } catch(exception) {
+//         next(exception)
 //       }
-//     })
-//     .catch(error => next(error))
-    try {
-        const blog = await Blog.findById(request.params.id)
-        if (blog) {
-          response.json(blog)
-        } else {
-          response.status(404).end()
-        }
-      } catch(exception) {
-        next(exception)
-      }
-})
+// })
 
 //4.12
 blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
 
-    //added Bearer schema
-    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: 'token invalid' })
-    }
-    const user = await User.findById(decodedToken.id)
+    // 4.17
+    const user = await User.findOne()
 
-    //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
+    //added Bearer schema
+    // const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    // if (!decodedToken.id) {
+    //   return response.status(401).json({ error: 'token invalid' })
+    // }
+    // //const user = await User.findById(decodedToken.id)
+
+    // //Javascript returns undefined if trying to access property that doesnt exist! Check if title of url is undefined!
     if (body.title === undefined || body.url === undefined) {
         return response.status(400).end()
     }
@@ -70,7 +76,7 @@ blogsRouter.post('/', async (request, response, next) => {
         author: body.author,
         url: body.url,
         likes: body.likes,
-        user: user.id
+        user: user._id
     })
     //   blog.save()
     //     .then(savedBlog => {
@@ -84,6 +90,9 @@ blogsRouter.post('/', async (request, response, next) => {
 
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
+
+    //4.17
+    const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 }).execPopulate()
 
     response.status(201).json(savedBlog)
 })

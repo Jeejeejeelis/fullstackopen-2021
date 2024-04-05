@@ -417,3 +417,12 @@ npm test -- --test-name-pattern='creation fails with short username and password
 Having problems with unique username... 
 FINALLY solved the problem!!!!!!!
 4.16* done
+
+
+4.17: Blog List Expansion, step 5
+Expand blogs so that each blog contains information on the creator of the blog.
+
+Modify adding new blogs so that when a new blog is created, any user from the database is designated as its creator (for example the one found first). Implement this according to part 4 chapter populate. Which user is designated as the creator does not matter just yet. The functionality is finished in exercise 4.19.
+
+Modify listing all blogs so that the creator's user information is displayed with the blog:
+4.17
