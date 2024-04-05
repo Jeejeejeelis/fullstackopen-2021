@@ -12,8 +12,8 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjQxOXRlc3QyIiwiaWQiOiI2NjEwMWNjNzQzYWU1Y2RiNzE0NGFkYzkiLCJpYXQiOjE3MTIzMzE5ODcsImV4cCI6MTcxMjMzNTU4N30.qD-qS0ztWTC7E-4nOGmZ4DvleuPhhohRHWvyG7SQHNQ
 
 {
-    "title": "create new post 4.19",
-    "author": "4.19r",
-    "url": "419.com",
-    "likes": 419
+    "title": "create new post 4.20",
+    "author": "4.20",
+    "url": "420.com",
+    "likes": 420
 }

@@ -6,14 +6,14 @@ const logger = require('../utils/logger')
 const jwt = require('jsonwebtoken')
 
 logger.info(`Server running on port ${config.PORT}`)
-
-const getTokenFrom = request => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.startsWith('Bearer ')) {
-      return authorization.replace('Bearer ', '')
-    }
-    return null
-  }
+// 4.20* refactored to middleware!
+// const getTokenFrom = request => {
+//     const authorization = request.get('authorization')
+//     if (authorization && authorization.startsWith('Bearer ')) {
+//       return authorization.replace('Bearer ', '')
+//     }
+//     return null
+//   }
 
 // Refactor this into asynchronous code
 // blogsRouter.get('/', (request, response) => {
@@ -60,7 +60,7 @@ blogsRouter.post('/', async (request, response, next) => {
     //const user = await User.findOne()
 
     //added Bearer schema
-    const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
