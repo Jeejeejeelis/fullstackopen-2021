@@ -9,11 +9,10 @@
 # }
 POST http://localhost:3003/api/blogs
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjQxOXRlc3QyIiwiaWQiOiI2NjEwMWNjNzQzYWU1Y2RiNzE0NGFkYzkiLCJpYXQiOjE3MTIzMzUzNTYsImV4cCI6MTcxMjMzODk1Nn0.2WbwMDe0R9r4mXmQGGm0TJ1xzKvWjuCAAq8G9TEPqT4
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RwYXJ0NSIsImlkIjoiNjYyYmYxNGIwODBhY2RkM2FkYmMxOTgwIiwiaWF0IjoxNzE0MTU3Mjg0LCJleHAiOjE3MTQxNjA4ODR9.dHeuAe3Qf4u3jWhLNzJhlJOtEtZ-8-Uf_JqjmWoOFCU
 {
-    "title": "create new post 4.22 test everything works!!",
-    "author": "4.22",
-    "url": "422.com",
+    "title": "testertitle",
+    "author": "testpartauthor",
+    "url": "tester3.com",
     "likes": 422
 }
