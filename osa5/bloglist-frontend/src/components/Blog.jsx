@@ -16,21 +16,23 @@ const Blog = ({ blog, handleLike, handleDelete, currentUser }) => {
   }
 
   return (
-    <div style={blogStyle}>
-      {blog.title} {blog.author}
-      <button onClick={toggleDetails}>{detailsVisible ? 'hide' : 'view'}</button>
-      {detailsVisible && (
-        <div>
-          {blog.url}<br/>
-                    likes {blog.likes}
-          <button onClick={handleLike}>like</button><br/>
-          {blog.user.name}<br/>
-          {currentUser && currentUser.username === blog.user.username && (
-            <button onClick={() => handleDelete(blog.id)}>remove</button>
-          )}
-        </div>
-      )}
-    </div>
+    <li className='blog'>
+      <div style={blogStyle}>
+        <span>{blog.title}</span> <span>{blog.author}</span>
+        <button onClick={toggleDetails}>{detailsVisible ? 'hide' : 'view'}</button>
+        {detailsVisible && (
+          <div>
+            {blog.url}<br/>
+            likes {blog.likes}
+            <button onClick={handleLike}>like</button><br/>
+            {blog.user.name}<br/>
+            {currentUser && currentUser.username === blog.user.username && (
+              <button onClick={() => handleDelete(blog.id)}>remove</button>
+            )}
+          </div>
+        )}
+      </div>
+    </li>
   )
 }
 

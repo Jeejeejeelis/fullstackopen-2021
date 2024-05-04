@@ -178,6 +178,7 @@ Start with this! Mine works fine... next part!
 Modify the application to sort the blog posts by the number of likes. The Sorting can be done with the array sort method.
 
 Now it works, However I need to refresh in order to have the correct order! Sort also in handleLike worked like a charm.
+5.10 DONE!
 
 
 5.11: Blog List Frontend, step 11
@@ -190,14 +191,38 @@ The confirmation dialog for deleting a blog post is easy to implement with the w
 Show the button for deleting a blog post only if the blog post was added by the user.
 
 
+
 5.12: Blog List Frontend, step 12
 Define PropTypes for one of the components of your application, and add ESlint to the project. Define the configuration according to your liking. Fix all of the linter errors.
 
 Vite has installed ESlint to the project by default, so all that's left for you to do is define your desired configuration in the .eslintrc.cjs file.
 
+
+DONE!!!
+
+Time to start testing the code! 
+Happy testing when we meet again!
+Exercises 5.13.-5.16.
+
+5.13: Blog List Tests, step 1
+Make a test, which checks that the component displaying a blog renders the blog's title and author, but does not render its URL or number of likes by default.
+
+Add CSS classes to the component to help the testing as necessary.
+
+5.14: Blog List Tests, step 2
+Make a test, which checks that the blog's URL and number of likes are shown when the button controlling the shown details has been clicked.
+
+5.15: Blog List Tests, step 3
+Make a test, which ensures that if the like button is clicked twice, the event handler the component received as props is called twice.
+
+5.16: Blog List Tests, step 4
+Make a test for the new blog form. The test should check, that the form calls the event handler it received as props with the right details when a new blog is created.
+
+
 TO GET STARTED!
 npm run dev  backend
 npm start    frontend
+npm test     to test frontend.
 
 kill -9 $(lsof -t -i:3003)
 Happy coding :)
