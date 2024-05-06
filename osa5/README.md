@@ -228,6 +228,27 @@ kill -9 $(lsof -t -i:3003)
 Happy coding :)
 
 Prework done in most part. some of the code I couldnt manage to make work yet. This code is commented out!
-Starting with 5.13!
+Starting with 5.13! Completed 5.13-5.16 and pushed to git. Howver i didnt save this file so i lost the notes on these exercises!
+
+
+Exercises 5.17.-5.23.
+In the last exercises of this part, let's do some E2E tests for the blog application. The material above should be enough to do most of the exercises. However, you should definitely read Playwright's documentation and API description, at least the sections mentioned at the end of the previous chapter.
+
+
+Instructions:
+TO GET STARTED!
+npm run dev  backend
+npm start    frontend
+Run tests: npm test
+Run test with only chromium: npm test -- --project chromium
+Run tests with ui: npm run test -- --ui    or    npm test -- --ui
+test report: npm run test:report
+
+Currently in prework on part Controlling the state of the database. Almost halfway! finish tomorrow :)
+
+
+
+"start:test": "NODE_ENV=test node index.js"  I had to make this:
+ "start:test": "cross-env NODE_ENV=test node index.js"    Then it worked :)
 
 
