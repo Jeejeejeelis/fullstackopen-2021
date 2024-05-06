@@ -226,3 +226,8 @@ npm test     to test frontend.
 
 kill -9 $(lsof -t -i:3003)
 Happy coding :)
+
+Prework done in most part. some of the code I couldnt manage to make work yet. This code is commented out!
+Starting with 5.13!
+
+
