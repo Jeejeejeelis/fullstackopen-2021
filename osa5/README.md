@@ -244,7 +244,7 @@ Run tests: npm test
 Run test with only chromium: npm test -- --project chromium
 Run tests with ui: npm run test -- --ui    or    npm test -- --ui
 test report: npm run test:report
-Run tests in debug mode: npm test -- -g'testName' --debug
+Run tests in debug mode: npm test -- -g'blogs are sorted in descending order of likes' --debug
 Record a test through UI: npx playwright codegen http://localhost:5173/
 
 
@@ -286,4 +286,8 @@ const blogsToShow = blogs
   // const blogsToShow = user ? blogs.filter(blog => blog.user && blog.user.name === user.name) : []
 
   Now it should work....
+
+5.23 done after many hours.... 
+Im using tmux for multiple terminals :)
+coursework done it seems! Great!
 
