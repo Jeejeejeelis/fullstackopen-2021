@@ -107,8 +107,10 @@ const App = () => {
         showNotification('An error occurred while adding the blog', 'error')
       })
   }
-
-  const blogsToShow = user ? blogs.filter(blog => blog.user.name === user.name) : []
+  const blogsToShow = blogs
+  // Code beneath hid all the other users blogs. This was done because of a misunderstanding.
+  // const blogsToShow = user ? blogs.filter(blog => blog.user && blog.user.name === user.name) : []
+  //const blogsToShow = user ? blogs.filter(blog => blog.user.name === user.name) : []
 
   const handleLogin = async (event) => {
     event.preventDefault()

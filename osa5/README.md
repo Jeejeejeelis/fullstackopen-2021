@@ -238,11 +238,17 @@ In the last exercises of this part, let's do some E2E tests for the blog applica
 Instructions:
 TO GET STARTED!
 npm run dev  backend
+npm run start:test RUN BACKEND IN TEST MODE!
 npm start    frontend
 Run tests: npm test
 Run test with only chromium: npm test -- --project chromium
 Run tests with ui: npm run test -- --ui    or    npm test -- --ui
 test report: npm run test:report
+Run tests in debug mode: npm test -- -g'testName' --debug
+Record a test through UI: npx playwright codegen http://localhost:5173/
+
+
+await page.pause() Use this for debugging tests!
 
 Currently in prework on part Controlling the state of the database. Almost halfway! finish tomorrow :)
 
@@ -251,4 +257,33 @@ Currently in prework on part Controlling the state of the database. Almost halfw
 "start:test": "NODE_ENV=test node index.js"  I had to make this:
  "start:test": "cross-env NODE_ENV=test node index.js"    Then it worked :)
 
+ Controlling the state of the database Currently here!
+
+ I had a problem with npm start:test crashing for some odd reason. now it has been resolved!
+
+
+CANNOT FIND 
+Test timeout of 3000ms exceeded while running "beforeEach" hook.
+@
+blog_app.spec.js:45
+Error: locator.click: Test timeout of 3000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: 'log 
+  Now tests are working again! :)
+
+  Problems with the reseting of tests. I did a bunch of things and now it magically works. I dont know what i did right....... nontheless let's continue!
+
+Do a test that makes sure the blog can be edited.   ????? I have not implemented an edit button? I dont believe this was a task anywhere? Maybe it's just the like button?  Solved and proposed a change to material! Just wanted likes to work for users.
+
+Make a test that confirms users can like a blog. It seems to work !
+
+5.22: Blog List End To End Testing, step 6
+Make a test that ensures that only the user who added the blog sees the blog's delete button.
+
+
+const blogsToShow = blogs
+  // Code beneath hid all the other users blogs. This was done because of a misunderstanding.
+  // const blogsToShow = user ? blogs.filter(blog => blog.user && blog.user.name === user.name) : []
+
+  Now it should work....
 
